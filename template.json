@@ -2,8 +2,8 @@
 "builders": [
     {
       "type" : "googlecompute",
-      "account_file": "C:\\Users\\vrethinavelu\\Downloads\\sinuous-anvil-273703-b8eae9b9109a.json",
-      "project_id" : "sinuous-anvil-273703",
+      "account_file": "path_of_the_service_account_file",
+      "project_id" : "project_id",
       "source_image": "debian-10-buster-v20200413",
       "source_image_family" : "debian-10",
       "image_name" : "packer-{{timestamp}}",
