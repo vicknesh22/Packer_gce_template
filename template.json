@@ -1,0 +1,41 @@
+{
+"builders": [
+    {
+      "type" : "googlecompute",
+      "account_file": "C:\\Users\\vrethinavelu\\Downloads\\sinuous-anvil-273703-b8eae9b9109a.json",
+      "project_id" : "sinuous-anvil-273703",
+      "source_image": "debian-10-buster-v20200413",
+      "source_image_family" : "debian-10",
+      "image_name" : "packer-{{timestamp}}",
+      "image_description" : "This is the machine with jenkins installed",
+      "disk_size": "200",
+      "machine_type": "n1-standard-1",
+      "zone": "us-central1-a",
+      "preemptible": "true",
+      "communicator": "ssh",
+      "ssh_username" : "jenkinsuser"
+    }
+  ],
+  "provisioners": [
+    {
+      "type"   : "shell",
+      "script" : "script.sh",
+      "valid_exit_codes" : "0",
+      "remote_folder" : "/tmp",
+      "timeout": "5m"
+    },
+    {
+      "type" : "shell",
+      "inline" : ["sudo apt-get install -y git", "sudo apt-get install -y maven"]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "googlecompute-export",
+      "paths": [
+        "gs://mybucket1/path/to/file1.tar.gz"
+      ],
+      "keep_input_artifact": true
+    }
+  ]
+}
